@@ -81,17 +81,39 @@ class SnakeGame():
 
         # 2. move
         self.__move_snake(self.direction)  # update the head
-        self.snake().insert(0, self.head)
+        self.snake.insert(0, self.head)
+
         # 3. check if game over
+        game_over = False
+        if self.__is_collision():
+            game_over = True
+            return game_over, self.score
 
         # 4. place new food or just move
+        if self.head == self.food:
+            self.score += 1
+            self.__place_food()
+        else:
+            self.snake.pop()
 
         # 5. update ui and clock
         self.__update_ui()
         self.clock.tick(GParams.SPEED.value)
+
         # 6. return game over and score
         game_over = False
         return game_over, self.score
+
+    def __is_collision(self):
+        condition1 = self.head.x > self.w - GParams.BLOCK_SIZE.value
+        condition2 = self.head.x < 0
+        condition3 = self.head.y > self.h - GParams.BLOCK_SIZE.value
+        condition4 = self.head.y < 0
+        if condition1 or condition2 or condition3 or condition4:
+            return True
+        # Snake collision starts at 1 index
+        if self.head in self.snake[1:]:
+            return True
 
     def __update_ui(self):
         self.display.fill(ColorParams.BLACK.value)
