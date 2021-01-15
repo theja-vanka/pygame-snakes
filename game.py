@@ -13,10 +13,10 @@ class Direction(Enum):
 
 
 class GParams(Enum):
-    TRAIL_SIZE = 12  # Snake tail size
+    INNER_BLOCK = 12  # Snake tail size
     BLOCK_SIZE = 20  # Pixel size of 1 block
     SPEED = 10  # Higher is faster
-    TAIL_OFFSET = 4  # Snake growth offset
+    IB_OFFSET = 4  # Snake growth offset
 
 
 class ColorParams(Enum):
@@ -24,8 +24,9 @@ class ColorParams(Enum):
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
     RED = (200, 0, 0)
+    LIGHTRED = (200, 100, 0)
     BLUE = (0, 0, 255)
-    BLUE2 = (0, 100, 255)
+    SKYBLUE = (0, 100, 255)
 
 
 class SnakeGame():
@@ -139,12 +140,12 @@ class SnakeGame():
             )
             pygame.draw.rect(
                 self.display,
-                ColorParams.BLUE2.value,
+                ColorParams.SKYBLUE.value,
                 pygame.Rect(
-                    pt.x+GParams.TAIL_OFFSET.value,
-                    pt.y+GParams.TAIL_OFFSET.value,
-                    GParams.TRAIL_SIZE.value,
-                    GParams.TRAIL_SIZE.value
+                    pt.x+GParams.IB_OFFSET.value,
+                    pt.y+GParams.IB_OFFSET.value,
+                    GParams.INNER_BLOCK.value,
+                    GParams.INNER_BLOCK.value
                 )
             )
 
@@ -156,6 +157,16 @@ class SnakeGame():
                 self.food.y,
                 GParams.BLOCK_SIZE.value,
                 GParams.BLOCK_SIZE.value
+            )
+        )
+        pygame.draw.rect(
+            self.display,
+            ColorParams.LIGHTRED.value,
+            pygame.Rect(
+                self.food.x+GParams.IB_OFFSET.value,
+                self.food.y+GParams.IB_OFFSET.value,
+                GParams.INNER_BLOCK.value,
+                GParams.INNER_BLOCK.value
             )
         )
 
@@ -187,7 +198,7 @@ if __name__ == '__main__':
 
     # Datastructure for points
     Point = namedtuple('Point', 'x, y')
-    font = pygame.font.Font('PressStart2P-Regular.ttf', 10)
+    font = pygame.font.Font('assets/PressStart2P-Regular.ttf', 10)
 
     game = SnakeGame()
 
