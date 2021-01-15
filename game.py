@@ -16,7 +16,7 @@ class Direction(Enum):
 
 
 # Datastructure for points
-Point = namedtuple('Point', 'x', 'y')
+Point = namedtuple('Point', 'x, y')
 BLOCK_SIZE = 20  # Pixel size of 1 block
 
 
@@ -62,6 +62,8 @@ class SnakeGame():
         # 5. update ui and clock
 
         # 6. return game over and score
+        game_over = False
+        return game_over, self.score
 
 
 if __name__ == '__main__':
@@ -69,8 +71,12 @@ if __name__ == '__main__':
 
     # game loop
     while True:
-        game.play_step()
+        game_over, score = game.play_step()
 
         # break if game over
+        if game_over is True:
+            break
+
+    print('Final Score')
 
     pygame.quit()
