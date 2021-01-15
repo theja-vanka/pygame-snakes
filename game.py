@@ -64,11 +64,24 @@ class SnakeGame():
             self.__place_food()
 
     def play_step(self):
-        pass
         # 1. collect user input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.direction = Direction.LEFT
+                elif event.key == pygame.K_RIGHT:
+                    self.direction = Direction.RIGHT
+                elif event.key == pygame.K_UP:
+                    self.direction = Direction.UP
+                elif event.key == pygame.K_DOWN:
+                    self.direction = Direction.DOWN
 
         # 2. move
-
+        self.__move_snake(self.direction)  # update the head
+        self.snake().insert(0, self.head)
         # 3. check if game over
 
         # 4. place new food or just move
@@ -123,6 +136,20 @@ class SnakeGame():
         )
         self.display.blit(text, [0, 0])
         pygame.display.flip()
+
+    def __move_snake(self, direction):
+        x = self.head.x
+        y = self.head.y
+        if direction == Direction.RIGHT:
+            x += GParams.BLOCK_SIZE.value
+        elif direction == Direction.LEFT:
+            x -= GParams.BLOCK_SIZE.value
+        elif direction == Direction.DOWN:
+            y += GParams.BLOCK_SIZE.value
+        elif direction == Direction.UP:
+            y -= GParams.BLOCK_SIZE.value
+
+        self.head = Point(x, y)
 
 
 if __name__ == '__main__':
