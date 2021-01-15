@@ -7,6 +7,7 @@ from collections import namedtuple
 pygame.init()
 
 
+# Enums to limit Direction
 class Direction(Enum):
     RIGHT = 1
     LEFT = 2
@@ -14,8 +15,9 @@ class Direction(Enum):
     DOWN = 4
 
 
+# Datastructure for points
 Point = namedtuple('Point', 'x', 'y')
-BLOCK_SIZE = 20
+BLOCK_SIZE = 20  # Pixel size of 1 block
 
 
 class SnakeGame():
@@ -49,6 +51,17 @@ class SnakeGame():
 
     def play_step(self):
         pass
+        # 1. collect user input
+
+        # 2. move
+
+        # 3. check if game over
+
+        # 4. place new food or just move
+
+        # 5. update ui and clock
+
+        # 6. return game over and score
 
 
 if __name__ == '__main__':
