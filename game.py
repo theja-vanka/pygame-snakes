@@ -210,6 +210,6 @@ if __name__ == '__main__':
         if game_over is True:
             break
 
-    print('Final Score')
+    print('Final Score: ' + str(game.score))
 
     pygame.quit()
