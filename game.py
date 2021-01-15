@@ -4,9 +4,6 @@ from enum import Enum
 from collections import namedtuple
 
 
-pygame.init()
-
-
 # Enums to limit Direction
 class Direction(Enum):
     RIGHT = 1
@@ -15,9 +12,20 @@ class Direction(Enum):
     DOWN = 4
 
 
-# Datastructure for points
-Point = namedtuple('Point', 'x, y')
-BLOCK_SIZE = 20  # Pixel size of 1 block
+class GParams(Enum):
+    TRAIL_SIZE = 12  # Snake tail size
+    BLOCK_SIZE = 20  # Pixel size of 1 block
+    SPEED = 40  # Higher is faster
+    TAIL_OFFSET = 4  # Snake growth offset
+
+
+class ColorParams(Enum):
+    # rgb colors
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (200, 0, 0)
+    BLUE = (0, 0, 255)
+    BLUE2 = (0, 100, 255)
 
 
 class SnakeGame():
@@ -35,16 +43,22 @@ class SnakeGame():
         self.head = Point(self.w/2, self.h/2)
         self.snake = [
             self.head,
-            Point(self.head.x-BLOCK_SIZE, self.head.y),
-            Point(self.head.x-(2*BLOCK_SIZE), self.head.y)
+            Point(self.head.x-(GParams.BLOCK_SIZE.value), self.head.y),
+            Point(self.head.x-(2*GParams.BLOCK_SIZE.value), self.head.y)
         ]
         self.score = 0
         self.food = None
         self.__place_food()
 
     def __place_food(self):
-        x = random.randint(0, (self.w-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
-        y = random.randint(0, (self.h-BLOCK_SIZE)//BLOCK_SIZE)*BLOCK_SIZE
+        x = random.randint(
+            0,
+            (self.w-GParams.BLOCK_SIZE.value)//GParams.BLOCK_SIZE.value
+        )*GParams.BLOCK_SIZE.value
+        y = random.randint(
+            0,
+            (self.h-GParams.BLOCK_SIZE.value)//GParams.BLOCK_SIZE.value
+        )*GParams.BLOCK_SIZE.value
         self.food = Point(x, y)
         if self.food in self.snake:
             self.__place_food()
@@ -60,13 +74,64 @@ class SnakeGame():
         # 4. place new food or just move
 
         # 5. update ui and clock
-
+        self.__update_ui()
+        self.clock.tick(GParams.SPEED.value)
         # 6. return game over and score
         game_over = False
         return game_over, self.score
 
+    def __update_ui(self):
+        self.display.fill(ColorParams.BLACK.value)
+
+        for pt in self.snake:
+            pygame.draw.rect(
+                self.display,
+                ColorParams.BLUE.value,
+                pygame.Rect(
+                    pt.x,
+                    pt.y,
+                    GParams.BLOCK_SIZE.value,
+                    GParams.BLOCK_SIZE.value
+                )
+            )
+            pygame.draw.rect(
+                self.display,
+                ColorParams.BLUE2.value,
+                pygame.Rect(
+                    pt.x+GParams.TAIL_OFFSET.value,
+                    pt.y+GParams.TAIL_OFFSET.value,
+                    GParams.TRAIL_SIZE.value,
+                    GParams.TRAIL_SIZE.value
+                )
+            )
+
+        pygame.draw.rect(
+            self.display,
+            ColorParams.RED.value,
+            pygame.Rect(
+                self.food.x,
+                self.food.y,
+                GParams.BLOCK_SIZE.value,
+                GParams.BLOCK_SIZE.value
+            )
+        )
+
+        text = font.render(
+            "Score : " + str(self.score),
+            True,
+            ColorParams.WHITE.value
+        )
+        self.display.blit(text, [0, 0])
+        pygame.display.flip()
+
 
 if __name__ == '__main__':
+    pygame.init()
+
+    # Datastructure for points
+    Point = namedtuple('Point', 'x, y')
+    font = pygame.font.Font('PressStart2P-Regular.ttf', 10)
+
     game = SnakeGame()
 
     # game loop
