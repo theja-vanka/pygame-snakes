@@ -4,11 +4,17 @@ import random
 from enum import Enum
 from collections import namedtuple
 
-# Reset function
-# Reward function
-# play(action) -> direction
-# game_iteration
-# is_collision
+# Introduce the following changes to game :
+# 1. Reset function
+# 2. Reward function
+# 3. play(action) -> direction
+# 4. game_iteration
+# 5. is_collision
+pygame.init()
+
+# Datastructure for points
+Point = namedtuple('Point', 'x, y')
+font = pygame.font.Font('assets/PressStart2P-Regular.ttf', 10)
 
 
 # Enums to limit Direction
@@ -213,10 +219,3 @@ class SnakeGameAI():
             y -= GParams.BLOCK_SIZE.value
 
         self.head = Point(x, y)
-
-
-pygame.init()
-
-# Datastructure for points
-Point = namedtuple('Point', 'x, y')
-font = pygame.font.Font('assets/PressStart2P-Regular.ttf', 10)
