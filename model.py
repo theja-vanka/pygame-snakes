@@ -47,3 +47,26 @@ class QTrainer:
             reward = torch.unsqueeze(reward, 0)
             next_state = torch.unsqueeze(next_state, 0)
             done = (done, )
+
+        # 1. predicted Q values with current state
+        pred = self.model(state)
+
+        # 2. Q_new = reward + gamma * max(next_predicted Q value)
+        # only do above step if not "done"
+        # pred.clone() (deep copy)
+        # preds[argmax(action)] = Q_new
+
+        target = pred.clone()
+        for idx in range(len(done)):
+            Q_new = reward[idx]
+            if not done[idx]:
+                Q_new = reward[idx] + self.gamma * torch.max(
+                                    self.model(next_state[idx])
+                                )
+            target[idx][torch.argmax(action).item()] = Q_new
+
+        self.optimizer.zero_grad()
+        loss = self.criterion(target, pred)
+        loss.backward()
+
+        self.optimizer.step()
