@@ -142,7 +142,7 @@ def train():
 
         if done:
             # train long memory, plot result
-            game.reset()
+            game.reset(agent.generation, record)
             agent.generation += 1
             agent.train_long_memory()
 

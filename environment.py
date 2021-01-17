@@ -46,15 +46,18 @@ class SnakeGameAI():
     def __init__(self, w=640, h=480):
         self.w = w
         self.h = h
-
+        self.generation = 0
+        self.record = 0
         # init display
         self.display = pygame.display.set_mode((self.w, self.h))
         pygame.display.set_caption('Snakes')
         self.clock = pygame.time.Clock()
-        self.reset()
+        self.reset(self.generation, self.record)
 
-    def reset(self):
+    def reset(self, generation, record):
         # init game style
+        self.generation = generation
+        self.record = record
         self.direction = Direction.RIGHT
         self.head = Point(self.w/2, self.h/2)
         self.snake = [
@@ -182,7 +185,21 @@ class SnakeGameAI():
             True,
             ColorParams.WHITE.value
         )
+
+        gen = font.render(
+            "Generation: " + str(self.generation),
+            True,
+            ColorParams.WHITE.value
+        )
+
+        rec = font.render(
+            "Record: " + str(self.record),
+            True,
+            ColorParams.WHITE.value
+        )
         self.display.blit(text, [0, 0])
+        self.display.blit(gen, [150, 0])
+        self.display.blit(rec, [350, 0])
         pygame.display.flip()
 
     def __move_snake(self, action):
