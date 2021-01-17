@@ -28,7 +28,7 @@ class Direction(Enum):
 class GParams(Enum):
     INNER_BLOCK = 12  # Snake tail size
     BLOCK_SIZE = 20  # Pixel size of 1 block
-    SPEED = 10  # Higher is faster
+    SPEED = 40  # Higher is faster
     IB_OFFSET = 4  # Snake growth offset
 
 

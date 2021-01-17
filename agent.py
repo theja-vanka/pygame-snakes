@@ -8,6 +8,7 @@ from environment import GParams
 from environment import Point
 from model import Linear_QNet
 from model import QTrainer
+from helper import plot
 
 # Constants
 MAX_MEMORY = 100_000
@@ -152,7 +153,12 @@ def train():
             print('Generation : ', agent.generation, end=" | ")
             print('Score : ', score, end=" | ")
             print('Record : ', record)
-            #  TODO : Plotting
+
+            plot_scores.append(score)
+            total_score += score
+            mean_score = total_score / agent.generation
+            plot_mean_scores.append(mean_score)
+            plot(plot_scores, plot_mean_scores)
 
 
 if __name__ == '__main__':
