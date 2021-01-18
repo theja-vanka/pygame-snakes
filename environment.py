@@ -43,9 +43,10 @@ class ColorParams(Enum):
 
 
 class SnakeGameAI():
-    def __init__(self, w=640, h=480):
+    def __init__(self, w=640, h=480, train=True):
         self.w = w
         self.h = h
+        self.train = train
         self.generation = 0
         self.record = 0
         # init display
@@ -186,20 +187,21 @@ class SnakeGameAI():
             ColorParams.WHITE.value
         )
 
-        gen = font.render(
-            "Generation: " + str(self.generation),
-            True,
-            ColorParams.WHITE.value
-        )
-
-        rec = font.render(
-            "Record: " + str(self.record),
-            True,
-            ColorParams.WHITE.value
-        )
         self.display.blit(text, [0, 0])
-        self.display.blit(gen, [150, 0])
-        self.display.blit(rec, [350, 0])
+        if self.train is True:
+            gen = font.render(
+                "Generation: " + str(self.generation),
+                True,
+                ColorParams.WHITE.value
+            )
+            self.display.blit(gen, [150, 0])
+            rec = font.render(
+                "Record: " + str(self.record),
+                True,
+                ColorParams.WHITE.value
+            )
+            self.display.blit(rec, [350, 0])
+
         pygame.display.flip()
 
     def __move_snake(self, action):
