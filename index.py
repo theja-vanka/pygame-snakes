@@ -1,10 +1,10 @@
 import torch
 import numpy as np
-from environment import SnakeGameAI
-from environment import Direction
-from environment import GParams
-from environment import Point
-from model import Linear_QNet
+from train.environment import SnakeGameAI
+from train.environment import Direction
+from train.environment import GParams
+from train.environment import Point
+from train.model import Linear_QNet
 
 # Constants
 STATE_SIZE = 11
