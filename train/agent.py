@@ -2,13 +2,13 @@ import torch
 import random
 import numpy as np
 from collections import deque
-from environment import SnakeGameAI
-from environment import Direction
-from environment import GParams
-from environment import Point
-from model import Linear_QNet
-from model import QTrainer
-from helper import plot
+from train.environment import SnakeGameAI
+from train.environment import Direction
+from train.environment import GParams
+from train.environment import Point
+from train.model import Linear_QNet
+from train.model import QTrainer
+from train.helper import plot
 
 # Constants
 MAX_MEMORY = 100_000
