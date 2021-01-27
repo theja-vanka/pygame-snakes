@@ -8,7 +8,7 @@
 ```
 $ pip install -r requirements.txt
 ```
-[Pytorch](https://pytorch.org/get-started/locally/)
+* [Install Pytorch](https://pytorch.org/get-started/locally/)
 
 ### Code / Execute
 
@@ -26,6 +26,3 @@ $ python index.py
 $ cd train
 $ python agent.py
 ```
-
-
-[![forthebadge](https://forthebadge.com/images/badges/contains-17-coffee-cups.svg)](https://pytorch.org/)
