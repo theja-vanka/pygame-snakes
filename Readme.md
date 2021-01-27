@@ -1,6 +1,5 @@
 # Reinforced Learning: Snakes Using PyTorch
 [![forthebadge](https://forthebadge.com/images/badges/contains-17-coffee-cups.svg)](https://pytorch.org/)
-[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/theja-vanka/pygame-snakes)
 
 ## Instructions
 ### Install Base Packages
@@ -28,5 +27,4 @@ $ python agent.py
 ```
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](https://github.com/theja-vanka)
-
-
+[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://github.com/theja-vanka/pygame-snakes)
